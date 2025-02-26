@@ -91,8 +91,6 @@ export function createEasMaestroTestFunctionGroup(
             name: 'install_app',
             displayName: `Install app to Emulator`,
             command: `
-              # shopt -s globstar is necessary to add /**/ support
-              shopt -s globstar
               # shopt -s nullglob is necessary not to try to install
               # SEARCH_PATH literally if there are no matching files.
               shopt -s nullglob
@@ -103,7 +101,7 @@ export function createEasMaestroTestFunctionGroup(
               for APP_PATH in $SEARCH_PATH; do
                 FILES_FOUND=true
                 echo "Installing \\"$APP_PATH\\""
-                adb install "$APP_PATH"
+                xcrun simctl install booted "$APP_PATH"
               done
 
               if ! $FILES_FOUND; then
